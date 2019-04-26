@@ -10,10 +10,32 @@ class Boat < ActiveRecord::Base
     end
 
     def self.dinghy
-      Boat.select{|boat| boat if boat.length < 20}
+      Boat.select{|boat| boat.length < 20}
     end
 
     def self.ship
-      Boat.select{|boat| boat if boat.length >= 20}
+      Boat.select{|boat| boat.length >= 20}
+    end
+
+    def self.last_three_alphabetically
+      Boat.order(name: :desc).first(3)
+    end
+
+    def self.without_a_captain
+      Boat.where(captain: nil)
+    end
+
+    def self.sailboats
+      sailboat = Classification.find_by(name: "Sailboat")
+      sailboat.boats
+    end
+
+    def self.motorboats
+      motorboat = Classification.find_by(name: "Motorboat")
+      motorboat.boats
+    end
+
+    def self.with_three_classifications
+      Boat.all.select {|boat| boat.classifications.count == 3}
     end
 end

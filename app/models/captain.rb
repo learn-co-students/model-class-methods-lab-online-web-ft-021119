@@ -13,12 +13,12 @@ class Captain < ActiveRecord::Base
     end
 
     def self.talented_seafarers
-      sailboat_class = Classification.find_by(name: "Sailboat")
-      motorboat_class = Classification.find_by(name: "Motorboat")
-      Captain.all.select do |captain|
-        boat_classes = captain.boats.map(&:classifications)
-        captain if boat_classes.find(sailboat_class) && boat_classes.find(motorboat_class)
-        binding.pry
-      end
+      sail_caps = Boat.sailboats.map(&:captain).uniq
+      motor_caps = Boat.motorboats.map(&:captain).uniq
+      seafarers = sail_caps & motor_caps
+    end
+
+    def self.non_sailors
+      Captain.all - sail_caps = Boat.sailboats.map(&:captain).uniq
     end
 end

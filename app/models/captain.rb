@@ -19,6 +19,6 @@ class Captain < ActiveRecord::Base
     end
 
     def self.non_sailors
-      Captain.all - sail_caps = Boat.sailboats.map(&:captain).uniq
+      Captain.all - Captain.sailors
     end
 end

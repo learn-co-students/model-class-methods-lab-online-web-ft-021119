@@ -15,3 +15,24 @@ describe Classification do
     end
   end
 end
+
+
+# :: is a scope resolution operator, it effectively means "in the namespace", so ActiveRecord::Base means "Base, in the namespace of ActiveRecord"
+#
+# A constant being resolved outside of any namespace means exactly what it sounds like - a constant not in any namespace at all.
+#
+# It's used in places where code may be ambiguous without it:
+#
+# module Document
+#   class Table # Represents a data table
+#
+#     def setup
+#       Table # Refers to the Document::Table class
+#       ::Table # Refers to the furniture class
+#     end
+#
+#   end
+# end
+#
+# class Table # Represents furniture
+# end
